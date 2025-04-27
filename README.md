@@ -7,7 +7,7 @@ Ce projet est une application complète de gestion de Pokémon, composée d'un *
 
 # Vidéo de présentation du projet
 
-[ Retrouver la vidéo youtube de mon projet ici ](https://youtu.be/-YWAYLjBHYc)
+[ Retrouver la vidéo youtube de mon projet ici ]()
 
 ## Technologies utilisées
 
@@ -80,7 +80,7 @@ Pour ce projet j'ai fait le choix d'avoir une barre de navigation permettant de 
 - **Description** : Page affichant la liste complète des Pokémon disponibles. Permet de consulter les informations de base des Pokémon.
 - **Accès** : Protégé (nécessite une authentification via `<PrivateRoute />`).
 
-### `/apropos`
+### `/`
 - **Composant associé** : `<APropos />`
 - **Description** : Page "À propos" contenant des informations sur l'application ou l'équipe de développement.
 - **Accès** : Protégé (nécessite une authentification via `<PrivateRoute />`).

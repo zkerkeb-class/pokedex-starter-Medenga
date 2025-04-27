@@ -25,7 +25,7 @@ function APropos() {
 
                 Que ce soit pour enrichir ses connaissances ou optimiser ses stratégies en combat, le Pokédex est un outil indispensable pour tout Dresseur souhaitant devenir un véritable Maître Pokémon.
             </p>
-            <ul style={{ width: "-webkit-fit-content", margin: "auto", padding:"2%", marginLeft: "10%", marginTop: "2%", lineHeight: "1.6", fontFamily: "'Press Start 2P', system-ui", fontSize: "10px", backgroundColor: "black"}}>
+            <ul style={{ width: "-webkit-fit-content", margin: "auto", padding:"2%",  marginTop: "2%", lineHeight: "1.6", fontFamily: "'Press Start 2P', system-ui", fontSize: "10px", backgroundColor: "black"}}>
                     <li style={{ marginBottom: "8px", display: "flex", alignItems: "center" }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{ marginRight: "10px", color: "#39FF14" }}>
                             <path d="M12 2v20m10-10H2"></path>

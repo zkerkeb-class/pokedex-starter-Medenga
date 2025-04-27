@@ -10,6 +10,7 @@ import Register from "./Register";
 import PrivateRoute from "./PrivateRoute";
 import { AuthProvider } from "./AuthContext"; 
 import Tournament from "./Tournament";  
+import NotFound from './NotFound';
 
 import axios from "axios";
 
@@ -35,7 +36,7 @@ function App() {
                 }
               />
               <Route
-                path="/apropos"
+                path="/"
                 element={
                   <PrivateRoute>
                     <APropos />
@@ -66,6 +67,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="*" element={<PrivateRoute><NotFound /></PrivateRoute>} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

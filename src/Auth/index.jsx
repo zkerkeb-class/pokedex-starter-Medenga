@@ -26,7 +26,7 @@ function Auth() {
           if (response.ok) {
             localStorage.setItem("token", data.token);
             setMessage("Connexion réussie !");
-            navigate("/apropos");
+            navigate("/");
           } else {
             setMessage(data.message || "Échec de la connexion");
           }

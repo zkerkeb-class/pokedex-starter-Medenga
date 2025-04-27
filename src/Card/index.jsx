@@ -14,49 +14,53 @@ function Card() {
   const [spAttack, setSpattack] = useState('');
   const [spDefense, setSpdefense] = useState('');
   const [loading, setLoading] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Ajout pour détecter la taille écran
   const token = localStorage.getItem("token");
-
   const { id } = useParams();
 
   // Récupérer les données du Pokémon
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/pokemons/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}` 
-        }
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then((response) => {
         setP(response.data);
-        setHp(response.data.hp || '');  // initialisation des champs avec les valeurs existantes
+        setHp(response.data.hp || '');
         setAttack(response.data.attack || '');
         setDefense(response.data.defense || '');
         setSpeed(response.data.speed || '');
-        setSpattack(response.data.spAttack || '');
-        setSpdefense(response.data.spDefense || '');
+        setSpattack(response.data.sp['Attack'] || '');
+        setSpdefense(response.data.sp['Defense'] || '');
         setLoading(false);
+
       })
       .catch((err) => {
         setLoading(false);
         console.error("Erreur lors de la récupération du Pokémon :", err);
       });
-  }, [id]);
+  }, [id, token]);
+
+  // Gérer redimensionnement fenêtre
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Fonction de soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const updatedPokemon = {};
+    const updatedPokemon = {
+      hp: hp !== '' ? parseInt(hp, 10) : p.hp,
+      attack: attack !== '' ? parseInt(attack, 10) : p.attack,
+      defense: defense !== '' ? parseInt(defense, 10) : p.defense,
+      speed: speed !== '' ? parseInt(speed, 10) : p.speed,
+      spAttack: spAttack !== '' ? parseInt(spAttack, 10) : p.spAttack,
+      spDefense: spDefense !== '' ? parseInt(spDefense, 10) : p.spDefense,
+    };
 
-    // Mettre à jour seulement les champs modifiés, sinon garder la valeur actuelle
-    updatedPokemon.hp = hp !== '' ? parseInt(hp, 10) : p.hp;
-    updatedPokemon.attack = attack !== '' ? parseInt(attack, 10) : p.attack;
-    updatedPokemon.defense = defense !== '' ? parseInt(defense, 10) : p.defense;
-    updatedPokemon.speed = speed !== '' ? parseInt(speed, 10) : p.speed;
-    updatedPokemon.spAttack = spAttack !== '' ? parseInt(spAttack, 10) : p.spAttack;
-    updatedPokemon.spDefense = spDefense !== '' ? parseInt(spDefense, 10) : p.spDefense;
-
-    // Vérifier si au moins un champ a été modifié
     if (
       updatedPokemon.hp === p.hp &&
       updatedPokemon.attack === p.attack &&
@@ -69,16 +73,13 @@ function Card() {
       return;
     }
 
-    // Envoyer la requête de mise à jour
     axios
       .put(`http://localhost:3000/api/pokemons/${id}`, updatedPokemon, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: { Authorization: `Bearer ${token}` }
       })
-      .then((response) => {
+      .then(() => {
         alert('Pokémon mis à jour');
-        window.location.reload();  // Recharger la page pour afficher les nouvelles valeurs
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Erreur lors de la mise à jour du Pokémon :", err);
@@ -108,13 +109,14 @@ function Card() {
           <>
             {/* Formulaire */}
             <div
-              style={{
-                flex: "1 1 300px",
-                maxWidth: "50%",
-                overflowY: "auto",
-                boxSizing: "border-box",
-              }}
-            >
+            style={{
+              flex: "1 1 300px",
+              maxWidth: windowWidth < 768 ? "100%" : "50%",
+              overflowY: "auto",
+              order: windowWidth < 768 ? 0 : 0,
+            }}
+          >
+
               <h2>Modifiez les pouvoirs de votre Pokémon</h2>
               <form onSubmit={handleSubmit}>
                 <div>
@@ -130,11 +132,11 @@ function Card() {
                   <label htmlFor="speed">Rapidité</label><br />
                   <input type="text" id="speed" name="speed" value={speed} onChange={(e) => setSpeed(e.target.value)} /><br />
 
-                  <label htmlFor="spattack">Attaque spéciale</label><br />
-                  <input type="text" id="spattack" name="spattack" value={spAttack} onChange={(e) => setSpattack(e.target.value)} /><br />
 
                   <label htmlFor="spdefense">Défense spéciale</label><br />
                   <input type="text" id="spdefense" name="spdefense" value={spDefense} onChange={(e) => setSpdefense(e.target.value)} /><br />
+                  <label htmlFor="spattack">Attaque spéciale</label><br />
+                  <input type="text" id="spattack" name="spattack" value={spAttack} onChange={(e) => setSpattack(e.target.value)} /><br />
                 </div>
 
                 <div style={{ margin: "5px" }}>
@@ -159,10 +161,11 @@ function Card() {
             <div
               style={{
                 flex: "1 1 300px",
-                maxWidth: "50%",
+                maxWidth: windowWidth < 768 ? "100%" : "50%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                order: windowWidth < 768 ? 2 : 0,
               }}
             >
               <motion.div
@@ -181,7 +184,7 @@ function Card() {
                   <Cards p={p} />
                 </div>
 
-                {/* Reflet shiny en diagonale */}
+                {/* Reflet shiny */}
                 <motion.div
                   style={{
                     position: 'absolute',
@@ -209,20 +212,6 @@ function Card() {
           </>
         )}
       </div>
-
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .card-container {
-            flex-direction: column;
-          }
-          .form-container, .card-container {
-            max-width: 100%;
-          }
-          .form-container {
-            margin-bottom: 20px;
-          }
-        }
-      `}</style>
     </div>
   );
 }

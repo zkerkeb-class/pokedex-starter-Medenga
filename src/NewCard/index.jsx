@@ -105,12 +105,9 @@ function NewCard() {
           HP: Number(hp),
           Attack: Number(attack),
           Defense: Number(defense),
+          "Sp. Attack": Number(spattack),
+          "Sp. Defense": Number(spdefense),
           Speed: Number(speed)
-        };
-      
-        const Sp = {
-          Attack: Number(spattack),
-          Defense: Number(spdefense)
         };
       
         const types = [type1];
@@ -125,8 +122,7 @@ function NewCard() {
             french: nom
           },
           type: types,
-          base: base,
-          Sp: Sp
+          base: base
         };
       
         const formData = new FormData();
@@ -149,7 +145,8 @@ function NewCard() {
             console.error("Détails de l'erreur:", err.response.data);
           }
         }
-    };
+      };
+      
       
 
     return (

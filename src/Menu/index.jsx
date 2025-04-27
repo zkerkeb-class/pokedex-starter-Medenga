@@ -29,7 +29,7 @@ function Menu() {
             </div>
             <p>Bienvenue dans le pokedex que souhaitez vous faire?</p>
             <div>
-                <Link to="/apropos"><button style={{ margin: "5px", padding: "8px 16px", backgroundColor: "grey", border: "none", borderRadius: "5px", cursor: "pointer" }}>À propos du pokedex</button></Link>
+                <Link to="/"><button style={{ margin: "5px", padding: "8px 16px", backgroundColor: "grey", border: "none", borderRadius: "5px", cursor: "pointer" }}>À propos du pokedex</button></Link>
                 <Link to="/pokedex"><button style={{ margin: "5px", padding: "8px 16px", backgroundColor: "grey", border: "none", borderRadius: "5px", cursor: "pointer" }}>Voir le Pokedex</button></Link>
                 <Link to="/pokedex/pokemon/new"><button style={{ margin: "5px", padding: "8px 16px", backgroundColor: "grey", border: "none", borderRadius: "5px", cursor: "pointer" }}>Créer une carte</button></Link>
                 <Link to="/pokedex/tournament"><button style={{ margin: "5px", padding: "8px 16px", backgroundColor: "grey", border: "none", borderRadius: "5px", cursor: "pointer" }}>Tournois</button></Link>

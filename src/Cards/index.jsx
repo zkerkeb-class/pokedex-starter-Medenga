@@ -55,7 +55,11 @@ const Cards = ({p}) => {
   const attack=p.base.Attack
   const defense=p.base.Defense
   const speed=p.base.Speed
+  const spattack = p.base.Sp[" Attack"];
+  const spdefense = p.base.Sp[" Defense"];
 
+
+  //console.log(p.base.Sp)
     return(
           <div
           style={{
@@ -113,7 +117,24 @@ const Cards = ({p}) => {
               <p style={{ marginTop: "2px", marginBottom: "2px"}}><strong>Attack:</strong> {attack}</p>
               <p style={{ marginTop: "2px", marginBottom: "2px"}}><strong>Defense:</strong> {defense}</p>
               <p style={{ marginTop: "2px", marginBottom: "2px"}}><strong>Speed:</strong> {speed}</p>
+              <p style={{ marginTop: "2px", marginBottom: "2px"}}><strong>Sp Defense:</strong> {spdefense}</p>
+              <p style={{ marginTop: "2px", marginBottom: "2px"}}><strong>Sp Attack:</strong> {spattack}</p>
             </div>
+            <button
+                onClick={() => deletePokemon(id)}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  backgroundColor: "#FF4747",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  marginTop: "10px",
+                }}
+              >
+                Supprimer
+              </button>
           </div>
         </div>
     

@@ -35,6 +35,7 @@ function Pokedex() {
       });
   }, []);
 
+  //console.log("pokemonList", pokemonList);
   //console.log("filteredPokemonList", filteredPokemonList);
   
   useEffect(() => {
